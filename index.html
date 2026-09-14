@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOPHIA · choose your vibe</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #1e1a2e 0%, #2a1f3a 100%);
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 60px 60px 40px 40px;
+      box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 215, 150, 0.2);
+      padding: 40px 30px 50px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5.5rem;
+      font-weight: 800;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      color: #ffdab9;
+      text-shadow: 0 0 15px #ffb347, 0 0 40px #ff8c42, 0 0 80px #b23e8c;
+      margin-bottom: 10px;
+      word-break: break-word;
+      animation: glowPulse 3s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 15px #ffb347, 0 0 40px #ff8c42, 0 0 80px #b23e8c; }
+      to { text-shadow: 0 0 25px #ffe082, 0 0 70px #ff5e9c, 0 0 110px #b23e8c; }
+    }
+
+    .subhead {
+      color: #d9c7f0;
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      border-bottom: 1px dashed rgba(255, 215, 150, 0.5);
+      padding-bottom: 15px;
+    }
+
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0 20px;
+    }
+
+    .choice-btn {
+      background: #2f2444;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 26px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #f0e6ff;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 10px 0 #0e0a18, 0 12px 20px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      flex: 1 0 180px;
+      justify-content: center;
+      border: 2px solid #a378c8;
+      letter-spacing: 0.5px;
+    }
+
+    .choice-btn:active {
+      transform: translateY(6px);
+      box-shadow: 0 4px 0 #0e0a18, 0 8px 16px rgba(0,0,0,0.6);
+    }
+
+    .choice-btn:hover {
+      background: #3e2d5a;
+      border-color: #f5b042;
+      color: #fff5e6;
+    }
+
+    .emoji-big {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6));
+    }
+
+    .result-panel {
+      margin-top: 30px;
+      min-height: 250px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 50px;
+      padding: 25px 20px;
+      border: 2px solid rgba(255, 200, 120, 0.5);
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .result-text {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffeac2;
+      text-shadow: 0 0 8px #ffb86b;
+      margin-bottom: 12px;
+    }
+
+    .result-emoji {
+      font-size: 6rem;
+      line-height: 1.2;
+      filter: drop-shadow(0 0 20px #ffb347);
+    }
+
+    .password-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .password-label {
+      font-size: 1.3rem;
+      color: #e9d6ff;
+    }
+
+    .password-input {
+      padding: 16px 24px;
+      font-size: 1.4rem;
+      border-radius: 40px;
+      border: 3px solid #b387e0;
+      background: #1f152b;
+      color: #fff4e0;
+      text-align: center;
+      letter-spacing: 4px;
+      width: 260px;
+      outline: none;
+      font-weight: 600;
+    }
+
+    .password-input:focus {
+      border-color: #ffb347;
+      box-shadow: 0 0 25px #ffb347;
+    }
+
+    .password-submit {
+      background: #ffb347;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #1e1427;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #9e6b1f;
+      transition: 0.1s;
+      letter-spacing: 1px;
+    }
+
+    .password-submit:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #9e6b1f;
+    }
+
+    .error-msg {
+      color: #ff9e9e;
+      font-size: 1rem;
+      font-weight: 500;
+      min-height: 24px;
+    }
+
+    .video-wrapper {
+      margin-top: 10px;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255, 200, 100, 0.7);
+      max-width: 100%;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 30px;
+      border: 3px solid #ffcf9a;
+      background: #0c0714;
+    }
+
+    .back-btn {
+      background: transparent;
+      border: 2px solid #a378c8;
+      color: #d9c7f0;
+      font-size: 1.1rem;
+      padding: 10px 26px;
+      border-radius: 40px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.15s;
+    }
+
+    .back-btn:hover {
+      background: #3e2d5a;
+      border-color: #f5b042;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 3.2rem;
+        letter-spacing: 6px;
+      }
+      .subhead {
+        font-size: 1.1rem;
+      }
+      .choice-btn {
+        font-size: 1.3rem;
+        padding: 14px 16px;
+      }
+      .result-emoji {
+        font-size: 4.5rem;
+      }
+      .result-text {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>SOPHIA</h1>
+    <div class="subhead">✨ who do you look like today? ✨</div>
+
+    <div class="choices">
+      <button class="choice-btn" data-choice="goat">
+        <span class="emoji-big">🐐</span> GOAT
+      </button>
+      <button class="choice-btn" data-choice="zebra">
+        <span class="emoji-big">🦓</span> ZEBRA
+      </button>
+      <button class="choice-btn" data-choice="beautiful">
+        <span class="emoji-big">🌸</span> BEAUTIFUL
+      </button>
+      <button class="choice-btn" data-choice="monkey">
+        <span class="emoji-big">🐒</span> MONKEY
+      </button>
+    </div>
+
+    <div id="resultPanel" class="result-panel">
+      <div id="resultContent">
+        <div class="result-text">👆 tap a vibe</div>
+        <div class="result-emoji">🎵</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const resultPanel = document.getElementById('resultPanel');
+      const resultContent = document.getElementById('resultContent');
+
+      // ⚠️ CHANGE THIS TO YOUR OWN VIDEO FILE NAME OR LINK
+      const SOPHIA_VIDEO_SRC = "sofi.mp4.mp4"; 
+      // Examples:
+      // const SOPHIA_VIDEO_SRC = "videos/sophia.mp4";
+      // const SOPHIA_VIDEO_SRC = "https://your-link.com/your-video.mp4";
+
+      let audioCtx = null;
+      function getAudioContext() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        return audioCtx;
+      }
+
+      function playSound(type) {
+        try {
+          const ctx = getAudioContext();
+          const now = ctx.currentTime;
+
+          if (type === 'goat') {
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'square';
+            osc1.frequency.setValueAtTime(320, now);
+            osc1.frequency.exponentialRampToValueAtTime(420, now + 0.12);
+            gain1.gain.setValueAtTime(0.15, now);
+            gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+            osc1.connect(gain1).connect(ctx.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.22);
+
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'square';
+            osc2.frequency.setValueAtTime(300, now + 0.25);
+            osc2.frequency.exponentialRampToValueAtTime(400, now + 0.35);
+            gain2.gain.setValueAtTime(0.12, now + 0.25);
+            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+            osc2.connect(gain2).connect(ctx.destination);
+            osc2.start(now + 0.25);
+            osc2.stop(now + 0.47);
+
+          } else if (type === 'zebra') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(700, now);
+            osc.frequency.linearRampToValueAtTime(950, now + 0.15);
+            osc.frequency.linearRampToValueAtTime(800, now + 0.35);
+            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+            osc.connect(gain).connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.55);
+
+            const lfo = ctx.createOscillator();
+            const lfoGain = ctx.createGain();
+            lfo.type = 'sine';
+            lfo.frequency.value = 28;
+            lfoGain.gain.value = 30;
+            lfo.connect(lfoGain);
+            lfoGain.connect(osc.frequency);
+            lfo.start(now);
+            lfo.stop(now + 0.5);
+
+          } else if (type === 'beautiful') {
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, i) => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.value = freq;
+              gain.gain.setValueAtTime(0.12, now + i * 0.1);
+              gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.4);
+              osc.connect(gain).connect(ctx.destination);
+              osc.start(now + i * 0.1);
+              osc.stop(now + i * 0.1 + 0.45);
+            });
+
+          } else if (type === 'monkey') {
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'sawtooth';
+            osc1.frequency.setValueAtTime(820, now);
+            osc1.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
+            gain1.gain.setValueAtTime(0.1, now);
+            gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+            osc1.connect(gain1).connect(ctx.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.18);
+
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'sawtooth';
+            osc2.frequency.setValueAtTime(880, now + 0.16);
+            osc2.frequency.exponentialRampToValueAtTime(1200, now + 0.26);
+            gain2.gain.setValueAtTime(0.1, now + 0.16);
+            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.32);
+            osc2.connect(gain2).connect(ctx.destination);
+            osc2.start(now + 0.16);
+            osc2.stop(now + 0.34);
+          }
+        } catch (e) {
+          console.warn('audio error', e);
+        }
+      }
+
+      function showDefaultMessage(text = '👆 tap a vibe', emoji = '🎵') {
+        resultContent.innerHTML = `
+          <div class="result-text">${text}</div>
+          <div class="result-emoji">${emoji}</div>
+        `;
+      }
+
+      function showSimpleResult(choice) {
+        let text = '';
+        let emoji = '';
+        if (choice === 'goat') {
+          text = 'Sophia, you look like a GOAT!';
+          emoji = '🐐';
+        } else if (choice === 'zebra') {
+          text = 'Sophia, you look like a ZEBRA!';
+          emoji = '🦓';
+        } else if (choice === 'monkey') {
+          text = 'Sophia, you look like a MONKEY!';
+          emoji = '🐒';
+        }
+        resultContent.innerHTML = `
+          <div class="result-text">${text}</div>
+          <div class="result-emoji">${emoji}</div>
+        `;
+      }
+
+      function showBeautifulPasswordScreen() {
+        resultContent.innerHTML = `
+          <div class="password-screen">
+            <div class="password-label">🔐 enter password to see the beautiful girl</div>
+            <input type="password" id="passwordInput" class="password-input" placeholder="••••••" autocomplete="off">
+            <button id="passwordSubmit" class="password-submit">UNLOCK</button>
+            <div id="passwordError" class="error-msg"></div>
+          </div>
+        `;
+
+        const pwdInput = document.getElementById('passwordInput');
+        const submitBtn = document.getElementById('passwordSubmit');
+        const errorDiv = document.getElementById('passwordError');
+
+        pwdInput.focus();
+
+        pwdInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            submitBtn.click();
+          }
+        });
+
+        submitBtn.addEventListener('click', () => {
+          const entered = pwdInput.value.trim();
+          if (entered === 'charm') {
+            showBeautifulVideo();
+          } else {
+            errorDiv.textContent = '❌ wrong password, try "🫵"';
+            // error beep
+            try {
+              const ctx = getAudioContext();
+              const now = ctx.currentTime;
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.value = 220;
+              gain.gain.setValueAtTime(0.08, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+              osc.connect(gain).connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.2);
+            } catch (e) {}
+            pwdInput.value = '';
+            pwdInput.focus();
+          }
+        });
+      }
+
+      function showBeautifulVideo() {
+        // magical chime
+        playSound('beautiful');
+
+        resultContent.innerHTML = `
+          <div style="text-align: center;">
+            <div class="result-text" style="font-size:1.8rem; margin-bottom:10px;">🌸 Sophia, you are BEAUTIFUL 🌸</div>
+            <div class="video-wrapper">
+              <video id="sophiaVideo" autoplay loop playsinline controls>
+                <source src="${SOPHIA_VIDEO_SRC}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <button id="unmuteBtn" class="back-btn" style="margin-top:12px;">🔊 Unmute if silent</button>
+            <button id="backFromVideo" class="back-btn" style="margin-top:18px;">↺ choose again</button>
+          </div>
+        `;
+
+        const vid = document.getElementById('sophiaVideo');
+        if (vid) {
+          vid.muted = false;
+          vid.volume = 1.0;
+          vid.play().catch(err => {
+            console.warn('Autoplay with sound blocked, muting fallback:', err);
+            vid.muted = true;
+            vid.play().catch(e => console.warn('even muted play failed', e));
+          });
+        }
+
+        // Unmute button (in case browser blocked sound)
+        const unmuteBtn = document.getElementById('unmuteBtn');
+        if (unmuteBtn) {
+          unmuteBtn.addEventListener('click', () => {
+            const v = document.getElementById('sophiaVideo');
+            if (v) {
+              v.muted = false;
+              v.volume = 1.0;
+              v.play();
+            }
+          });
+        }
+
+        // Back button
+        const backBtn = document.getElementById('backFromVideo');
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            showDefaultMessage('👆 tap a vibe', '🎵');
+          });
+        }
+
+        // Fallback if video fails to load
+        if (vid) {
+          vid.addEventListener('error', () => {
+            resultContent.innerHTML = `
+              <div class="result-text">Sophia, you are BEAUTIFUL</div>
+              <div class="result-emoji">🌸✨</div>
+              <button id="backFromVideo" class="back-btn" style="margin-top:18px;">↺ choose again</button>
+            `;
+            const b = document.getElementById('backFromVideo');
+            if (b) b.addEventListener('click', () => showDefaultMessage('👆 tap a vibe', '🎵'));
+          });
+        }
+      }
+
+      function handleChoice(choice) {
+        getAudioContext();
+
+        if (choice === 'beautiful') {
+          // gentle tap sound
+          try {
+            const ctx = getAudioContext();
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+            osc.connect(gain).connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.16);
+          } catch (e) {}
+          showBeautifulPasswordScreen();
+        } else {
+          playSound(choice);
+          showSimpleResult(choice);
+        }
+      }
+
+      const buttons = document.querySelectorAll('.choice-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const choice = btn.getAttribute('data-choice');
+          handleChoice(choice);
+        });
+      });
+
+      showDefaultMessage();
+
+      document.body.addEventListener('click', () => {
+        getAudioContext();
+      }, { once: false });
+
+    })();
+  </script>
+
+</body>
+</html>
