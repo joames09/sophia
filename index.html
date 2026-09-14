@@ -2,224 +2,226 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SOPHIA · choose your vibe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SOPHIA</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
     }
 
     body {
-      min-height: 100vh;
       background: linear-gradient(145deg, #1e1a2e 0%, #2a1f3a 100%);
-      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 10px;
+      color: #f0e6ff;
     }
 
     .card {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 60px 60px 40px 40px;
-      box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 215, 150, 0.2);
-      padding: 40px 30px 50px;
-      max-width: 800px;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 215, 150, 0.25);
+      padding: 16px 20px 20px;
       width: 100%;
-      text-align: center;
+      max-width: 700px;
+      max-height: 98vh;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
     }
 
     h1 {
-      font-size: 5.5rem;
+      font-size: clamp(2rem, 8vw, 3.5rem);
       font-weight: 800;
-      letter-spacing: 10px;
-      text-transform: uppercase;
+      letter-spacing: 6px;
+      text-align: center;
       color: #ffdab9;
-      text-shadow: 0 0 15px #ffb347, 0 0 40px #ff8c42, 0 0 80px #b23e8c;
-      margin-bottom: 10px;
-      word-break: break-word;
-      animation: glowPulse 3s infinite alternate;
-    }
-
-    @keyframes glowPulse {
-      from { text-shadow: 0 0 15px #ffb347, 0 0 40px #ff8c42, 0 0 80px #b23e8c; }
-      to { text-shadow: 0 0 25px #ffe082, 0 0 70px #ff5e9c, 0 0 110px #b23e8c; }
+      text-shadow: 0 0 10px #ffb347, 0 0 30px #b23e8c;
+      line-height: 1;
     }
 
     .subhead {
       color: #d9c7f0;
-      font-size: 1.4rem;
-      margin-bottom: 40px;
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      text-align: center;
       font-weight: 300;
-      letter-spacing: 2px;
-      border-bottom: 1px dashed rgba(255, 215, 150, 0.5);
-      padding-bottom: 15px;
+      letter-spacing: 1.5px;
+      border-bottom: 1px dashed rgba(255, 215, 150, 0.4);
+      padding-bottom: 8px;
+      flex-shrink: 0;
     }
 
     .choices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin: 30px 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
     .choice-btn {
       background: #2f2444;
-      border: none;
-      border-radius: 50px;
-      padding: 18px 26px;
-      font-size: 1.7rem;
-      font-weight: 600;
+      border: 2px solid #a378c8;
+      border-radius: 40px;
+      padding: 12px 8px;
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
+      font-weight: 700;
       color: #f0e6ff;
       display: flex;
       align-items: center;
-      gap: 14px;
-      box-shadow: 0 10px 0 #0e0a18, 0 12px 20px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: all 0.12s ease;
-      flex: 1 0 180px;
       justify-content: center;
-      border: 2px solid #a378c8;
+      gap: 8px;
+      box-shadow: 0 5px 0 #0e0a18;
+      cursor: pointer;
+      transition: transform 0.05s, background 0.1s;
       letter-spacing: 0.5px;
-    }
-
-    .choice-btn:active {
-      transform: translateY(6px);
-      box-shadow: 0 4px 0 #0e0a18, 0 8px 16px rgba(0,0,0,0.6);
+      user-select: none;
     }
 
     .choice-btn:hover {
       background: #3e2d5a;
       border-color: #f5b042;
-      color: #fff5e6;
+    }
+
+    .choice-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #0e0a18;
     }
 
     .emoji-big {
-      font-size: 2.2rem;
-      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.6));
+      font-size: clamp(1.3rem, 4.5vw, 1.8rem);
     }
 
     .result-panel {
-      margin-top: 30px;
-      min-height: 250px;
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 50px;
-      padding: 25px 20px;
+      flex: 1;
+      min-height: 0;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 24px;
+      padding: 14px;
       border: 2px solid rgba(255, 200, 120, 0.5);
-      transition: all 0.25s;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      overflow: hidden;
     }
 
     .result-text {
-      font-size: 2rem;
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
       font-weight: 700;
       color: #ffeac2;
       text-shadow: 0 0 8px #ffb86b;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
+      line-height: 1.2;
     }
 
     .result-emoji {
-      font-size: 6rem;
-      line-height: 1.2;
-      filter: drop-shadow(0 0 20px #ffb347);
+      font-size: clamp(3rem, 12vw, 5rem);
+      line-height: 1;
+      filter: drop-shadow(0 0 15px #ffb347);
     }
 
+    /* password screen */
     .password-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 8px;
       width: 100%;
     }
 
     .password-label {
-      font-size: 1.3rem;
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
       color: #e9d6ff;
+      text-align: center;
     }
 
     .password-input {
-      padding: 16px 24px;
-      font-size: 1.4rem;
-      border-radius: 40px;
-      border: 3px solid #b387e0;
+      padding: 10px 16px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      border: 2px solid #b387e0;
       background: #1f152b;
       color: #fff4e0;
       text-align: center;
       letter-spacing: 4px;
-      width: 260px;
+      width: min(220px, 80%);
       outline: none;
       font-weight: 600;
     }
 
     .password-input:focus {
       border-color: #ffb347;
-      box-shadow: 0 0 25px #ffb347;
+      box-shadow: 0 0 15px #ffb347;
     }
 
     .password-submit {
       background: #ffb347;
       border: none;
-      border-radius: 40px;
-      padding: 14px 40px;
-      font-size: 1.3rem;
+      border-radius: 30px;
+      padding: 10px 30px;
+      font-size: 1.1rem;
       font-weight: bold;
       color: #1e1427;
       cursor: pointer;
-      box-shadow: 0 6px 0 #9e6b1f;
-      transition: 0.1s;
+      box-shadow: 0 4px 0 #9e6b1f;
       letter-spacing: 1px;
     }
 
     .password-submit:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #9e6b1f;
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #9e6b1f;
     }
 
     .error-msg {
       color: #ff9e9e;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      min-height: 24px;
+      min-height: 18px;
     }
 
+    /* video */
     .video-wrapper {
-      margin-top: 10px;
-      border-radius: 30px;
-      overflow: hidden;
-      box-shadow: 0 0 30px rgba(255, 200, 100, 0.7);
-      max-width: 100%;
+      width: 100%;
+      max-height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     video {
       display: block;
       width: 100%;
-      max-width: 400px;
-      height: auto;
-      border-radius: 30px;
+      max-width: min(360px, 70vw);
+      max-height: 40vh;
+      border-radius: 20px;
       border: 3px solid #ffcf9a;
       background: #0c0714;
+      object-fit: cover;
     }
 
     .back-btn {
       background: transparent;
       border: 2px solid #a378c8;
       color: #d9c7f0;
-      font-size: 1.1rem;
-      padding: 10px 26px;
-      border-radius: 40px;
-      margin-top: 10px;
+      font-size: 0.95rem;
+      padding: 8px 20px;
+      border-radius: 30px;
+      margin-top: 6px;
       cursor: pointer;
-      font-weight: 500;
-      transition: 0.15s;
+      font-weight: 600;
     }
 
     .back-btn:hover {
@@ -228,24 +230,12 @@
       color: white;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 3.2rem;
-        letter-spacing: 6px;
-      }
-      .subhead {
-        font-size: 1.1rem;
-      }
-      .choice-btn {
-        font-size: 1.3rem;
-        padding: 14px 16px;
-      }
-      .result-emoji {
-        font-size: 4.5rem;
-      }
-      .result-text {
-        font-size: 1.6rem;
-      }
+    /* very small screens — keep everything visible */
+    @media (max-height: 640px) {
+      h1 { font-size: 2rem; letter-spacing: 4px; }
+      .choice-btn { padding: 8px 6px; font-size: 0.95rem; }
+      .emoji-big { font-size: 1.2rem; }
+      video { max-height: 32vh; }
     }
   </style>
 </head>
@@ -271,7 +261,7 @@
     </div>
 
     <div id="resultPanel" class="result-panel">
-      <div id="resultContent">
+      <div id="resultContent" style="width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
         <div class="result-text">👆 tap a vibe</div>
         <div class="result-emoji">🎵</div>
       </div>
@@ -280,23 +270,18 @@
 
   <script>
     (function() {
-      const resultPanel = document.getElementById('resultPanel');
       const resultContent = document.getElementById('resultContent');
 
-      // ⚠️ CHANGE THIS TO YOUR OWN VIDEO FILE NAME OR LINK
-      const SOPHIA_VIDEO_SRC = "sofi.mp4.mp4"; 
-      // Examples:
-      // const SOPHIA_VIDEO_SRC = "videos/sophia.mp4";
-      // const SOPHIA_VIDEO_SRC = "https://your-link.com/your-video.mp4";
+      // ⚠️ CHANGE THIS to your own video file name or link
+      const SOPHIA_VIDEO_SRC = "sofi.mp4.mp4";
 
+      // ---- AUDIO ----
       let audioCtx = null;
       function getAudioContext() {
         if (!audioCtx) {
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         return audioCtx;
       }
 
@@ -306,28 +291,8 @@
           const now = ctx.currentTime;
 
           if (type === 'goat') {
-            const osc1 = ctx.createOscillator();
-            const gain1 = ctx.createGain();
-            osc1.type = 'square';
-            osc1.frequency.setValueAtTime(320, now);
-            osc1.frequency.exponentialRampToValueAtTime(420, now + 0.12);
-            gain1.gain.setValueAtTime(0.15, now);
-            gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-            osc1.connect(gain1).connect(ctx.destination);
-            osc1.start(now);
-            osc1.stop(now + 0.22);
-
-            const osc2 = ctx.createOscillator();
-            const gain2 = ctx.createGain();
-            osc2.type = 'square';
-            osc2.frequency.setValueAtTime(300, now + 0.25);
-            osc2.frequency.exponentialRampToValueAtTime(400, now + 0.35);
-            gain2.gain.setValueAtTime(0.12, now + 0.25);
-            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
-            osc2.connect(gain2).connect(ctx.destination);
-            osc2.start(now + 0.25);
-            osc2.stop(now + 0.47);
-
+            beep(ctx, 320, 420, now, 0.12, 'square', 0.15);
+            beep(ctx, 300, 400, now + 0.22, 0.13, 'square', 0.12);
           } else if (type === 'zebra') {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
@@ -336,153 +301,103 @@
             osc.frequency.linearRampToValueAtTime(950, now + 0.15);
             osc.frequency.linearRampToValueAtTime(800, now + 0.35);
             gain.gain.setValueAtTime(0.18, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
             osc.connect(gain).connect(ctx.destination);
-            osc.start(now);
-            osc.stop(now + 0.55);
-
-            const lfo = ctx.createOscillator();
-            const lfoGain = ctx.createGain();
-            lfo.type = 'sine';
-            lfo.frequency.value = 28;
-            lfoGain.gain.value = 30;
-            lfo.connect(lfoGain);
-            lfoGain.connect(osc.frequency);
-            lfo.start(now);
-            lfo.stop(now + 0.5);
-
+            osc.start(now); osc.stop(now + 0.5);
           } else if (type === 'beautiful') {
-            const notes = [523.25, 659.25, 783.99, 1046.50];
-            notes.forEach((freq, i) => {
-              const osc = ctx.createOscillator();
-              const gain = ctx.createGain();
-              osc.type = 'triangle';
-              osc.frequency.value = freq;
-              gain.gain.setValueAtTime(0.12, now + i * 0.1);
-              gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.4);
-              osc.connect(gain).connect(ctx.destination);
-              osc.start(now + i * 0.1);
-              osc.stop(now + i * 0.1 + 0.45);
+            [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => {
+              beep(ctx, f, f, now + i * 0.08, 0.1, 'triangle', 0.12);
             });
-
           } else if (type === 'monkey') {
-            const osc1 = ctx.createOscillator();
-            const gain1 = ctx.createGain();
-            osc1.type = 'sawtooth';
-            osc1.frequency.setValueAtTime(820, now);
-            osc1.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
-            gain1.gain.setValueAtTime(0.1, now);
-            gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-            osc1.connect(gain1).connect(ctx.destination);
-            osc1.start(now);
-            osc1.stop(now + 0.18);
-
-            const osc2 = ctx.createOscillator();
-            const gain2 = ctx.createGain();
-            osc2.type = 'sawtooth';
-            osc2.frequency.setValueAtTime(880, now + 0.16);
-            osc2.frequency.exponentialRampToValueAtTime(1200, now + 0.26);
-            gain2.gain.setValueAtTime(0.1, now + 0.16);
-            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.32);
-            osc2.connect(gain2).connect(ctx.destination);
-            osc2.start(now + 0.16);
-            osc2.stop(now + 0.34);
+            beep(ctx, 820, 1100, now, 0.1, 'sawtooth', 0.1);
+            beep(ctx, 880, 1200, now + 0.14, 0.1, 'sawtooth', 0.1);
           }
-        } catch (e) {
-          console.warn('audio error', e);
-        }
+        } catch (e) { /* silent */ }
       }
 
-      function showDefaultMessage(text = '👆 tap a vibe', emoji = '🎵') {
+      function beep(ctx, f1, f2, start, dur, wave, vol) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = wave;
+        osc.frequency.setValueAtTime(f1, start);
+        osc.frequency.exponentialRampToValueAtTime(f2, start + dur);
+        gain.gain.setValueAtTime(vol, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + dur + 0.08);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + dur + 0.1);
+      }
+
+      // ---- SCREENS ----
+      function showDefault() {
         resultContent.innerHTML = `
-          <div class="result-text">${text}</div>
-          <div class="result-emoji">${emoji}</div>
+          <div class="result-text">👆 tap a vibe</div>
+          <div class="result-emoji">🎵</div>
         `;
       }
 
-      function showSimpleResult(choice) {
-        let text = '';
-        let emoji = '';
-        if (choice === 'goat') {
-          text = 'Sophia, you look like a GOAT!';
-          emoji = '🐐';
-        } else if (choice === 'zebra') {
-          text = 'Sophia, you look like a ZEBRA!';
-          emoji = '🦓';
-        } else if (choice === 'monkey') {
-          text = 'Sophia, you look like a MONKEY!';
-          emoji = '🐒';
-        }
+      function showSimple(choice) {
+        const map = {
+          goat:    { t: 'Sophia, you look like a GOAT!',   e: '🐐' },
+          zebra:   { t: 'Sophia, you look like a ZEBRA!',  e: '🦓' },
+          monkey:  { t: 'Sophia, you look like a MONKEY!', e: '🐒' }
+        };
+        const m = map[choice];
         resultContent.innerHTML = `
-          <div class="result-text">${text}</div>
-          <div class="result-emoji">${emoji}</div>
+          <div class="result-text">${m.t}</div>
+          <div class="result-emoji">${m.e}</div>
         `;
       }
 
-      function showBeautifulPasswordScreen() {
+      function showPasswordScreen() {
         resultContent.innerHTML = `
           <div class="password-screen">
-            <div class="password-label">🔐 enter password to see the beautiful girl</div>
-            <input type="password" id="passwordInput" class="password-input" placeholder="••••••" autocomplete="off">
-            <button id="passwordSubmit" class="password-submit">UNLOCK</button>
-            <div id="passwordError" class="error-msg"></div>
+            <div class="password-label">🔐 enter password</div>
+            <input type="password" id="pwdInput" class="password-input" placeholder="••••••" autocomplete="off">
+            <button id="pwdSubmit" class="password-submit">UNLOCK</button>
+            <div id="pwdError" class="error-msg"></div>
           </div>
         `;
+        const inp = document.getElementById('pwdInput');
+        const btn = document.getElementById('pwdSubmit');
+        const err = document.getElementById('pwdError');
+        inp.focus();
 
-        const pwdInput = document.getElementById('passwordInput');
-        const submitBtn = document.getElementById('passwordSubmit');
-        const errorDiv = document.getElementById('passwordError');
-
-        pwdInput.focus();
-
-        pwdInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            submitBtn.click();
-          }
+        inp.addEventListener('keydown', e => {
+          if (e.key === 'Enter') { e.preventDefault(); btn.click(); }
         });
 
-        submitBtn.addEventListener('click', () => {
-          const entered = pwdInput.value.trim();
-          if (entered === 'charm') {
-            showBeautifulVideo();
+        btn.addEventListener('click', () => {
+          if (inp.value.trim() === 'charm') {
+            showVideo();
           } else {
-            errorDiv.textContent = '❌ wrong password, try "🫵"';
+            err.textContent = '❌ wrong, try "charm"';
+            inp.value = '';
+            inp.focus();
             // error beep
             try {
               const ctx = getAudioContext();
-              const now = ctx.currentTime;
-              const osc = ctx.createOscillator();
-              const gain = ctx.createGain();
-              osc.type = 'sine';
-              osc.frequency.value = 220;
-              gain.gain.setValueAtTime(0.08, now);
-              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-              osc.connect(gain).connect(ctx.destination);
-              osc.start(now);
-              osc.stop(now + 0.2);
-            } catch (e) {}
-            pwdInput.value = '';
-            pwdInput.focus();
+              beep(ctx, 220, 180, ctx.currentTime, 0.18, 'sine', 0.08);
+            } catch(e){}
           }
         });
       }
 
-      function showBeautifulVideo() {
-        // magical chime
+      function showVideo() {
         playSound('beautiful');
 
         resultContent.innerHTML = `
-          <div style="text-align: center;">
-            <div class="result-text" style="font-size:1.8rem; margin-bottom:10px;">🌸 Sophia, you are BEAUTIFUL 🌸</div>
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+            <div class="result-text" style="font-size:1.2rem;">🌸 Sophia, you are BEAUTIFUL 🌸</div>
             <div class="video-wrapper">
               <video id="sophiaVideo" autoplay loop playsinline controls>
                 <source src="${SOPHIA_VIDEO_SRC}" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             </div>
-            <button id="unmuteBtn" class="back-btn" style="margin-top:12px;">🔊 Unmute if silent</button>
-            <button id="backFromVideo" class="back-btn" style="margin-top:18px;">↺ choose again</button>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+              <button id="unmuteBtn" class="back-btn">🔊 Unmute</button>
+              <button id="backBtn" class="back-btn">↺ Back</button>
+            </div>
           </div>
         `;
 
@@ -490,87 +405,53 @@
         if (vid) {
           vid.muted = false;
           vid.volume = 1.0;
-          vid.play().catch(err => {
-            console.warn('Autoplay with sound blocked, muting fallback:', err);
+          vid.play().catch(() => {
             vid.muted = true;
-            vid.play().catch(e => console.warn('even muted play failed', e));
+            vid.play().catch(()=>{});
           });
-        }
-
-        // Unmute button (in case browser blocked sound)
-        const unmuteBtn = document.getElementById('unmuteBtn');
-        if (unmuteBtn) {
-          unmuteBtn.addEventListener('click', () => {
-            const v = document.getElementById('sophiaVideo');
-            if (v) {
-              v.muted = false;
-              v.volume = 1.0;
-              v.play();
-            }
-          });
-        }
-
-        // Back button
-        const backBtn = document.getElementById('backFromVideo');
-        if (backBtn) {
-          backBtn.addEventListener('click', () => {
-            showDefaultMessage('👆 tap a vibe', '🎵');
-          });
-        }
-
-        // Fallback if video fails to load
-        if (vid) {
           vid.addEventListener('error', () => {
             resultContent.innerHTML = `
               <div class="result-text">Sophia, you are BEAUTIFUL</div>
               <div class="result-emoji">🌸✨</div>
-              <button id="backFromVideo" class="back-btn" style="margin-top:18px;">↺ choose again</button>
+              <button id="backBtn" class="back-btn">↺ Back</button>
             `;
-            const b = document.getElementById('backFromVideo');
-            if (b) b.addEventListener('click', () => showDefaultMessage('👆 tap a vibe', '🎵'));
+            document.getElementById('backBtn').onclick = showDefault;
           });
         }
+
+        document.getElementById('unmuteBtn').onclick = () => {
+          const v = document.getElementById('sophiaVideo');
+          if (v) { v.muted = false; v.volume = 1.0; v.play(); }
+        };
+        document.getElementById('backBtn').onclick = showDefault;
       }
 
+      // ---- MAIN HANDLER ----
       function handleChoice(choice) {
-        getAudioContext();
+        getAudioContext(); // unlock audio instantly
 
         if (choice === 'beautiful') {
-          // gentle tap sound
+          // quick tap sparkle
           try {
             const ctx = getAudioContext();
-            const now = ctx.currentTime;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = 880;
-            gain.gain.setValueAtTime(0.08, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-            osc.connect(gain).connect(ctx.destination);
-            osc.start(now);
-            osc.stop(now + 0.16);
-          } catch (e) {}
-          showBeautifulPasswordScreen();
+            beep(ctx, 880, 880, ctx.currentTime, 0.1, 'sine', 0.08);
+          } catch(e){}
+          showPasswordScreen();
         } else {
           playSound(choice);
-          showSimpleResult(choice);
+          showSimple(choice);
         }
       }
 
-      const buttons = document.querySelectorAll('.choice-btn');
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const choice = btn.getAttribute('data-choice');
-          handleChoice(choice);
-        });
+      // ---- BIND BUTTONS ----
+      document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.addEventListener('click', () => handleChoice(btn.dataset.choice));
       });
 
-      showDefaultMessage();
+      // unlock audio on first tap anywhere
+      document.addEventListener('click', () => getAudioContext(), { once: true });
 
-      document.body.addEventListener('click', () => {
-        getAudioContext();
-      }, { once: false });
-
+      showDefault();
     })();
   </script>
 
