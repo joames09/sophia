@@ -309,10 +309,10 @@
 
     inp.onkeydown = function(e){ if(e.key === 'Enter'){ e.preventDefault(); btn.click(); } };
     btn.onclick = function(){
-      if(inp.value.trim() === 'charm'){
+      if(inp.value.trim() === 'joames'){
         showVideo();
       } else {
-        err.textContent = '❌ wrong, try "charm"';
+        err.textContent = '❌ wrong, try "🫵"';
         inp.value = '';
         inp.focus();
         soundError();
